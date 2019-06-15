@@ -1,0 +1,30 @@
+import time
+import serial
+import RPi.GPIO as led
+led.setmode(led.BCM)
+led.setwarnings(False)
+led.setup(21,led.OUT)
+y = serial.Serial(
+    port='/dev/ttyS0',
+    baudrate = 9600,
+    parity=serial.PARITY_NONE,
+    stopbits=serial.STOPBITS_ONE,
+    bytesize=serial.EIGHTBITS,
+    timeout=1             
+ )
+i=0       #counter
+       
+while 1:
+   
+    mes_rec=y.readline().strip()
+    print(mes_rec)
+    if mes_rec == 'f':                #LED on for 5 sec
+        led.output(21,led.HIGH)
+        time.sleep(5)
+    else if mes_rec == 't':           #LED on for 3 sec
+        led.output(21,led.HIGH)
+        time.sleep(3)
+    else:
+        led.output(21,led.LOW)
+
+ 
